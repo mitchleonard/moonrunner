@@ -1,0 +1,42 @@
+:root{
+  --bg:#0a0f1c; --moon:#1d2742; --regolith:#a9b7ff33; --accent:#5bffea; --accent2:#ffd166; --danger:#ff4d6d; --text:#e9f1ff;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:radial-gradient(1000px 700px at 70% -10%,#243158 0%, var(--bg) 60%);
+  color:var(--text); font-family:'Barlow Condensed', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+canvas{display:block; width:100vw; height:100vh; touch-action:none}
+.hud{position:fixed; inset:0; pointer-events:none; z-index:2}
+.topbar{position:absolute; top:12px; left:12px; right:12px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+.badge{font-weight:900; letter-spacing:0.08em; background:linear-gradient(90deg, #112 0%, #223 100%);
+  border:1px solid #3a4c8a; border-radius:999px; padding:6px 12px; display:inline-flex; align-items:center; gap:10px}
+.badge .dot{width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 12px var(--accent)}
+.score{font-size:20px}
+.cta{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:auto; z-index:3}
+h1.title{font-family:'Orbitron', sans-serif; font-size:56px; margin:10px 0 0; letter-spacing:0.06em; text-shadow:0 0 18px #5bffea55}
+.subtitle{font-size:18px; opacity:0.9; letter-spacing:0.04em}
+.btn{pointer-events:auto; appearance:none; border:none; background:linear-gradient(180deg, var(--accent) 0%, #21c9bb 100%);
+  color:#001016; font-weight:800; letter-spacing:0.08em; padding:14px 20px; border-radius:12px; cursor:pointer; text-transform:uppercase;}
+.btn.secondary{background:linear-gradient(180deg, #8aa3ff 0%, #6c82ff 100%); color:#050b18}
+.btn:active{transform:translateY(1px)}
+.panel{background:rgba(20,28,54,0.85); border:1px solid #3a4c8a; border-radius:18px; padding:16px}
+.hidden{display:none}
+.leaderboard{max-width:520px; margin:12px auto 0; text-align:left}
+.lb-row{display:flex; justify-content:space-between; padding:10px 12px; border-radius:10px}
+.lb-row.me{background:#1e2a4e}
+.lb-row span{font-size:18px}
+.name-entry{display:flex; gap:8px; margin-top:12px}
+input[type="text"], select{pointer-events:auto; padding:12px 14px; border-radius:10px; border:1px solid #3a4c8a; background:#0d1430; color:var(--text);
+  font-family:'Orbitron',sans-serif; letter-spacing:0.12em; text-transform:uppercase}
+select{text-transform:none; letter-spacing:0}
+.footer-note{opacity:0.8; font-size:14px; margin-top:8px}
+
+.avatar-selector { display: flex; justify-content: center; gap: 16px; margin-top: 12px; }
+.avatar-option { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; padding: 8px; border-radius: 12px; border: 2px solid transparent; transition: border-color 0.2s; }
+.avatar-option.selected { border-color: var(--accent); }
+.avatar-preview { width: 64px; height: 80px; background-color: #1e2a4e; border-radius: 8px; }
+/* Avatar styles */
+.avatar-preview.astro { background-color: #e0e6ff; }
+.avatar-preview.alien { background-color: #7efc8a; }
+.avatar-preview.scientist { background-color: #ffe9a9; }
+
+@media (max-width:480px){ h1.title{font-size:40px} .score{font-size:18px} }

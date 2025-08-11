@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>MoonRunner</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div class="hud" aria-hidden="true">
+    <div class="topbar">
+      <div class="badge"><span class="dot"></span><span>MOONRUNNER</span></div>
+      <div class="score" id="score">00.0s</div>
+    </div>
+
+    <div id="start" class="cta">
+      <div class="panel">
+        <h1 class="title">ASTRO JUMP</h1>
+        <div class="subtitle">Tap or press Space to leap across craters, moon rocks and rovers. Grab Anti‑Gravity for mega jumps.</div>
+        <div style="height:12px"></div>
+        <div class="subtitle" style="margin-bottom:6px">Choose Your Avatar</div>
+        <div id="avatar-selector" class="avatar-selector">
+          <div class="avatar-option" data-avatar="astro">
+            <div class="avatar-preview astro"></div>
+            <span>Astro</span>
+          </div>
+          <div class="avatar-option" data-avatar="alien">
+            <div class="avatar-preview alien"></div>
+            <span>Zog the Zoomer</span>
+          </div>
+          <div class="avatar-option" data-avatar="scientist">
+            <div class="avatar-preview scientist"></div>
+            <span>Dr. Booster</span>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <button class="btn" id="playBtn">Launch</button>
+        <div class="footer-note">Desktop: Arrow keys to move. Mobile: Tap anywhere.</div>
+      </div>
+    </div>
+
+    <div id="gameover" class="cta hidden">
+      <div class="panel">
+        <h1 class="title" style="font-size:42px">MISSION REPORT</h1>
+        <div class="subtitle" id="finalScore">Time: 0.0s</div>
+        <div class="leaderboard" id="leaderboard"></div>
+        <div class="name-entry hidden" id="nameEntry">
+          <input id="nameInput" type="text" maxlength="5" placeholder="ENTER NAME" />
+          <button class="btn secondary" id="saveScore">Save</button>
+        </div>
+        <div style="height:12px"></div>
+        <button class="btn" id="replayBtn">Replay with New Map</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
