@@ -255,6 +255,13 @@ avatarSelector.addEventListener('click', e => {
     avatar = option.dataset.avatar;
     document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
     option.classList.add('selected');
+
+    // Show mobile controls pop-up only after avatar selection, and only once
+    const isMobile = window.innerWidth <= 600;
+    const dismissed = localStorage.getItem('moonrunner_mobile_demo_dismissed');
+    if (isMobile && !dismissed) {
+        mobileDemo.classList.remove('hidden');
+    }
 });
 
 themeToggle.addEventListener('click', () => {
@@ -344,7 +351,9 @@ requestAnimationFrame(step);
 // Mobile controls demo
 const mobileDemo = document.getElementById('mobileDemo');
 const acceptControls = document.getElementById('acceptControls');
+
 acceptControls.addEventListener('click', () => {
-  mobileDemo.classList.add('hidden');
-  start();
+    mobileDemo.classList.add('hidden');
+    localStorage.setItem('moonrunner_mobile_demo_dismissed', '1');
+    start();
 });
