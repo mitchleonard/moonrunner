@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>MoonRunner — vTEST</title>
+  <title>MoonRunner</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
   <canvas id="game"></canvas>
   <div class="hud" aria-hidden="true">
     <div class="topbar">
-      <div class="badge"><span class="dot"></span><span>MOONRUNNER</span></div>
+      <!-- Removed the Moonrunner badge -->
       <div class="score" id="score">00.0s</div>
     </div>
 
@@ -54,6 +54,21 @@
         </div>
         <div style="height:12px"></div>
         <button class="btn" id="replayBtn">Replay with New Map</button>
+      </div>
+    </div>
+
+    <!-- Updated light/dark mode toggle to an icon -->
+    <button class="btn secondary" id="themeToggle">
+      <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Mobile controls tutorial (only shows on mobile) -->
+    <div id="mobileDemo" class="cta hidden">
+      <div class="panel">
+        <h1 class="title">Mobile Controls</h1>
+        <div class="subtitle">Tap the top half of the screen to jump. Tap the bottom half to fall.</div>
+        <div style="height:12px"></div>
+        <button class="btn" id="acceptControls">Got it!</button>
       </div>
     </div>
   </div>

@@ -80,13 +80,21 @@ function fastFall() {
     player.vy += gravity * 0.1;
 }
 
-canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); jump(); });
+canvas.addEventListener('pointerdown', (e) => {
+    const isTopHalf = e.clientY < window.innerHeight / 2;
+    if (isTopHalf) {
+        jump();
+    } else {
+        fastFall();
+    }
+});
 window.addEventListener('keydown', (e) => {
     const tag = document.activeElement && document.activeElement.tagName;
     if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
     if (e.code === 'ArrowUp' || e.code === 'Space') { e.preventDefault(); jump(); }
     if (e.code === 'ArrowDown') { e.preventDefault(); fastFall(); }
 });
+// Mobile controls are handled by the canvas tap events
 
 // --------- Collision helpers ---------
 function aabb(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
@@ -119,8 +127,11 @@ function drawBackground(dt) {
     const g = ctx.createRadialGradient(W * 0.85, H * 0.2, 10, W * 0.85, H * 0.2, 220);
     g.addColorStop(0, 'rgba(91,255,234,0.25)'); g.addColorStop(1, 'rgba(91,255,234,0)');
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(W * 0.85, H * 0.2, 220, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#121933'; ctx.fillRect(0, GROUND_Y(), W, H - GROUND_Y());
-    ctx.strokeStyle = 'rgba(169,183,255,0.22)'; ctx.lineWidth = 2;
+    const isLightMode = document.body.classList.contains('light-mode');
+    ctx.fillStyle = isLightMode ? '#e8eeff' : '#121933';
+    ctx.fillRect(0, GROUND_Y(), W, H - GROUND_Y());
+    ctx.strokeStyle = isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(169,183,255,0.22)';
+    ctx.lineWidth = 2;
     for (let i = 0; i < 6; i++) { ctx.beginPath(); const y = GROUND_Y() + 10 + i * 10; ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
 }
 
@@ -152,7 +163,7 @@ function drawItems(dt) {
         o.x -= speed * dt;
         if (o.type === types.ROCK) { ctx.fillStyle = '#98a5ff'; ctx.fillRect(o.x, o.y, o.w, o.h); }
         else if (o.type === types.ROVER) { ctx.fillStyle = '#ffd166'; ctx.fillRect(o.x, o.y, o.w, o.h); ctx.fillStyle = '#202b52'; ctx.fillRect(o.x + 8, o.y + o.h - 8, 18, 8); ctx.fillRect(o.x + o.w - 26, o.y + o.h - 8, 18, 8); }
-        else if (o.type === types.CRATER) { ctx.fillStyle = '#070b1a'; ctx.fillRect(o.x, o.y, o.w, o.h); ctx.strokeStyle = 'rgba(169,183,255,0.35)'; ctx.strokeRect(o.x, o.y, o.w, o.h); }
+        else if (o.type === types.CRATER) { ctx.fillStyle = '#5b5b5b'; ctx.fillRect(o.x, GROUND_Y() - o.h, o.w, o.h); ctx.strokeStyle = 'rgba(169,183,255,0.35)'; ctx.strokeRect(o.x, o.y, o.w, o.h); }
     });
     terrain.powerups.forEach(p => { p.x -= speed * dt; ctx.beginPath(); ctx.arc(p.x, p.y, p.r + Math.sin(performance.now() / 1000 * 5 + p.x * 0.02) * 1.5, 0, Math.PI * 2); ctx.fillStyle = 'rgba(91,255,234,0.9)'; ctx.fill(); ctx.strokeStyle = 'rgba(91,255,234,0.5)'; ctx.lineWidth = 2; ctx.stroke(); });
 
@@ -235,6 +246,8 @@ const nameWrap = document.getElementById('nameEntry');
 const nameInput = document.getElementById('nameInput');
 const saveBtn = document.getElementById('saveScore');
 const avatarSelector = document.getElementById('avatar-selector');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
 
 avatarSelector.addEventListener('click', e => {
     const option = e.target.closest('.avatar-option');
@@ -242,6 +255,17 @@ avatarSelector.addEventListener('click', e => {
     avatar = option.dataset.avatar;
     document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
     option.classList.add('selected');
+});
+
+themeToggle.addEventListener('click', () => {
+    const isLightMode = document.body.classList.toggle('light-mode');
+    themeIcon.textContent = isLightMode ? '☀️' : '🌙';
+    // Update game map for light mode
+    if (isLightMode) {
+        terrain.stars.forEach(s => s.color = '#000000');
+    } else {
+        terrain.stars.forEach(s => s.color = '#ffffff');
+    }
 });
 
 function start() {
@@ -316,3 +340,11 @@ document.getElementById('playBtn').addEventListener('click', start);
 document.querySelector('.avatar-option[data-avatar="astro"]').classList.add('selected');
 reset();
 requestAnimationFrame(step);
+
+// Mobile controls demo
+const mobileDemo = document.getElementById('mobileDemo');
+const acceptControls = document.getElementById('acceptControls');
+acceptControls.addEventListener('click', () => {
+  mobileDemo.classList.add('hidden');
+  start();
+});
