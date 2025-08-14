@@ -79,43 +79,7 @@ body.light-mode .score {
   pointer-events: auto;
 }
 
-#mobileDemo {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  color: var(--text);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 4;
-  padding: 0 12px;
-  box-sizing: border-box;
-}
-
-@media (max-width:480px){ h1.title{font-size:40px} .score{font-size:18px} }
-@media (max-width: 600px) {
-  .cta#mobileDemo {
-    position: static;
-    left: unset;
-    top: unset;
-    transform: none;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 24px;
-    z-index: 4;
-    width: 100%;
-    padding: 0 8px;
-    background: none;
-  }
-  #mobileDemo .panel {
-    max-width: 95vw;
-    width: 100%;
-    border-radius: 22px;
-    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.25);
-    padding: 24px 12px;
-    margin: 0 auto;
-    background: rgba(20,28,54,0.92);
-    border: 1px solid #3a4c8a;
-  }
+@media (max-width:480px){ 
+    h1.title{font-size:40px} 
+    .score{font-size:18px} 
 }

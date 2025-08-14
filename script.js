@@ -269,14 +269,6 @@ themeToggle.addEventListener('click', () => {
 });
 
 function start() {
-    // Check if we should show mobile controls first
-    const isMobile = window.innerWidth <= 600;
-    const dismissed = localStorage.getItem('moonrunner_mobile_demo_dismissed');
-    if (isMobile && !dismissed && avatar) {
-        mobileDemo.classList.remove('hidden');
-        return; // Don't start game until controls are acknowledged
-    }
-
     // Hide UI
     startUI.classList.add('hidden');
     overUI.classList.add('hidden');
@@ -349,14 +341,3 @@ document.querySelector('.avatar-option[data-avatar="astro"]').classList.add('sel
 reset();
 requestAnimationFrame(step);
 
-// Mobile controls demo
-const mobileDemo = document.getElementById('mobileDemo');
-const acceptControls = document.getElementById('acceptControls');
-
-// Handle the "Got it!" button click
-acceptControls.addEventListener('click', () => {
-    mobileDemo.classList.add('hidden');
-    localStorage.setItem('moonrunner_mobile_demo_dismissed', '1');
-    // Now actually start the game
-    start();
-});
