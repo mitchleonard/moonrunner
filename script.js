@@ -255,13 +255,6 @@ avatarSelector.addEventListener('click', e => {
     avatar = option.dataset.avatar;
     document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
     option.classList.add('selected');
-
-    // Show mobile controls pop-up only after avatar selection, and only once
-    const isMobile = window.innerWidth <= 600;
-    const dismissed = localStorage.getItem('moonrunner_mobile_demo_dismissed');
-    if (isMobile && !dismissed) {
-        mobileDemo.classList.remove('hidden');
-    }
 });
 
 themeToggle.addEventListener('click', () => {
@@ -276,6 +269,14 @@ themeToggle.addEventListener('click', () => {
 });
 
 function start() {
+    // Check if we should show mobile controls first
+    const isMobile = window.innerWidth <= 600;
+    const dismissed = localStorage.getItem('moonrunner_mobile_demo_dismissed');
+    if (isMobile && !dismissed && avatar) {
+        mobileDemo.classList.remove('hidden');
+        return; // Don't start game until controls are acknowledged
+    }
+
     // Hide UI
     startUI.classList.add('hidden');
     overUI.classList.add('hidden');
@@ -352,8 +353,10 @@ requestAnimationFrame(step);
 const mobileDemo = document.getElementById('mobileDemo');
 const acceptControls = document.getElementById('acceptControls');
 
+// Handle the "Got it!" button click
 acceptControls.addEventListener('click', () => {
     mobileDemo.classList.add('hidden');
     localStorage.setItem('moonrunner_mobile_demo_dismissed', '1');
+    // Now actually start the game
     start();
 });
